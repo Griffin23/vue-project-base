@@ -2,11 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1.0, user-scalable=no"
+        name="viewport">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="./reset.css" rel="stylesheet" />
-  <link href="./normalize.css" rel="stylesheet" />
+  <link href="./reset.css" rel="stylesheet"/>
+  <link href="./normalize.css" rel="stylesheet"/>
+  <script type="text/javascript">
+    // 计算html的font-size
+    (function() {
+      function resizeBaseFontSize() {
+        var rootHtml = document.documentElement,
+          deviceWidth = rootHtml.clientWidth;
+
+        // rem font-size方案（sr = 屏幕宽度，fs = font-size）：
+        // sr >= 1000, fs = 375 / 3.75 = 100
+        // 640 < sr < 1000, fs = 640 / 3.75
+        // sr <= 640, fs = sr / 3.75
+        if (deviceWidth >= 1000) {
+          deviceWidth = 375;
+        }
+        if (deviceWidth > 640) {
+          deviceWidth = 640;
+        }
+
+        rootHtml.style.fontSize = deviceWidth / 3.75 + 'px';
+      }
+
+      resizeBaseFontSize();
+
+      window.addEventListener('resize', resizeBaseFontSize, false);
+      window.addEventListener('orientationchange', resizeBaseFontSize, false);
+
+    })();
+  </script>
   <title>Document</title>
 </head>
 <body>
