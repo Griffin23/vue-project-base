@@ -1,0 +1,11 @@
+// z-index管理
+$z-index-map: (
+        "banner-pagination": 991,
+        "header": 1005,
+        "mask": 1010,
+        "side-menu": 1015
+);
+// 用法：@include z-index("header");
+@mixin z-index($z-index-item) {
+  z-index: map_get($z-index-map, $z-index-item);
+}
