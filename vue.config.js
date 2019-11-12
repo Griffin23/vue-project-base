@@ -20,5 +20,14 @@ module.exports = {
   devServer: {
     index: 'home.html'
   },
-  productionSourceMap: false // 关闭生产sourcemap
+  productionSourceMap: false, // 关闭生产sourcemap
+  css: {
+    loaderOptions: {
+      postcss: {
+        plugins: [require('postcss-plugin-px2rem')({
+          value: 100 // px转换rem，基准值100px
+        })]
+      }
+    }
+  }
 };
