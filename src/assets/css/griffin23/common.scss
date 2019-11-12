@@ -1,0 +1,40 @@
+// 聚焦或鼠标悬停样式 mixin
+@mixin hover-focus-style {
+  &:hover, &:focus {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+@mixin hover-focus-style-no-underline {
+  &:hover, &:focus {
+    cursor: pointer;
+  }
+}
+
+@mixin delete-focus-outline {
+  &:focus {
+    outline: none;
+  }
+}
+
+* {
+  font-family: Arial;
+}
+
+a {
+  text-decoration: none;
+  @include hover-focus-style;
+}
+
+.flex-place-holder {
+  flex: 1;
+}
+
+.none {
+  display: none!important;
+}
+
+.pointer {
+  cursor: pointer;
+}
