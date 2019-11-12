@@ -19,5 +19,6 @@ module.exports = {
   pages,
   devServer: {
     index: 'home.html'
-  }
+  },
+  productionSourceMap: false // 关闭生产sourcemap
 };
