@@ -1,0 +1,114 @@
+// responsive web development 响应式网页开发
+
+// 屏幕分割点 - 参考bootstrap
+$screen-break-point-map: ("xs": 576px, "sm": 768px, "md": 992px, "lg": 1200px);
+
+// 大小屏分割点
+$screen-break-point: map_get($screen-break-point-map, "md");
+
+// 枚举：大屏、小屏
+$screen-size-enum: ("lg": lg, "sm": sm);
+
+// region 不同屏样式
+
+// 自适应：小屏样式（常用）
+@mixin small-screen-style {
+  @media screen and (max-width: $screen-break-point - 1) {
+    @content;
+  }
+}
+// 自适应：大屏样式（常用）
+@mixin large-screen-style {
+  @media screen and (min-width: $screen-break-point) {
+    @content;
+  }
+}
+
+// 以下为更详细的划分
+// xs屏幕样式 < 567px
+@mixin xs-style {
+  @media screen and (max-width: map_get($screen-break-point-map, "xs") - 1) {
+    @content;
+  }
+}
+// sm屏幕样式 >= 576px
+@mixin sm-style {
+  @media screen and (min-width: map_get($screen-break-point-map, "xs")) {
+    @content;
+  }
+}
+// md屏幕样式 >= 768px
+@mixin md-style {
+  @media screen and (min-width: map_get($screen-break-point-map, "sm")) {
+    @content;
+  }
+}
+// lg屏幕样式 >= 992x
+@mixin lg-style {
+  @media screen and (min-width: map_get($screen-break-point-map, "md")) {
+    @content;
+  }
+}
+// xl屏幕样式 >= 1200px
+@mixin xl-style {
+  @media screen and (min-width: map_get($screen-break-point-map, "lg")) {
+    @content;
+  }
+}
+
+// endregion
+
+// region 不同屏显示 or 隐藏
+
+// 控制在大屏or小屏，内容是否隐藏
+@mixin _display-control($screen-size) {
+  @media screen and (min-width: $screen-break-point) {
+    @if ($screen-size == map_get($screen-size-enum, "sm")) {
+      display: none!important;
+    }
+  }
+  @media screen and (max-width: $screen-break-point - 1) {
+    @if ($screen-size == map_get($screen-size-enum, "lg")) {
+      display: none!important;
+    }
+  }
+}
+
+// 自适应：小屏隐藏（常用）
+.small-screen-hide {
+  @include _display-control(map_get($screen-size-enum, "lg"));
+}
+// 自适应：大屏隐藏（常用）
+.large-screen-hide {
+  @include _display-control(map_get($screen-size-enum, "sm"));
+}
+
+// 以下为更详细的划分
+// >= 768隐藏
+.ge-sm-hide {
+  @media screen and (min-width: map_get($screen-break-point-map, "sm")) {
+    display: none!important;
+  }
+}
+// < 768 隐藏
+.lt-sm-hide {
+  @media screen and (max-width: map_get($screen-break-point-map, "sm") - 1) {
+    display: none!important;
+  }
+}
+
+// endregion
+
+// 容器，参考bootstrap container
+.griffin23-container {
+  margin: 0 auto;
+  @media screen and (max-width: map_get($screen-break-point-map, "md") - 1) {
+    padding: 0 11px;
+  }
+  @media screen and (min-width: map_get($screen-break-point-map, "md")) {
+    width: 992px;
+  }
+  @media screen and (min-width: map_get($screen-break-point-map, "lg")) {
+    width: 1200px;
+  }
+}

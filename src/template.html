@@ -15,10 +15,10 @@
           deviceWidth = rootHtml.clientWidth;
 
         // rem font-size方案（sr = 屏幕宽度，fs = font-size）：
-        // sr >= 1000, fs = 375 / 3.75 = 100
-        // 640 < sr < 1000, fs = 640 / 3.75
+        // sr >= 992, fs = 375 / 3.75 = 100
+        // 640 < sr < 992, fs = 640 / 3.75
         // sr <= 640, fs = sr / 3.75
-        if (deviceWidth >= 1000) {
+        if (deviceWidth >= 992) {
           deviceWidth = 375;
         }
         if (deviceWidth > 640) {
