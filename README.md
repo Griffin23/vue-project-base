@@ -1,4 +1,6 @@
-# vue development kit
+# vue project base
+
+Kit to develop vue project.
 
 ## based on vue-cli 3
 
