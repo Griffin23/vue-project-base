@@ -1,24 +1,27 @@
-# vue-project-base
+# vue development kit
 
-## Project setup
-```
-npm install
-```
+## based on vue-cli 3
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## feature
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### multi page
 
-### Lints and fixes files
-```
-npm run lint
-```
+### i18n
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+supported by vue-i18n
+
+### rwd(responsive web development)
+
+- screen break point
+- container
+- px2rem
+
+### Other small feature
+
+#### z-index
+
+z-index.scss make dom's z-index managed properly.
+
+#### ajax
+
+supported by axios
