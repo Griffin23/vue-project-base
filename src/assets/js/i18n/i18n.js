@@ -12,13 +12,34 @@ let messages = {
 
 let lang = 'en';
 
-// 外部组件库设置多语言需要用到该枚举
+// language enum
 export const langEnum = {
   EN: 'en',
   ZH: 'zh'
 };
 
-export default new VueI18n({
+let i18n = new VueI18n({
   locale: lang,
   messages: messages
 });
+
+/***
+ * get i18n text by key
+ * @param key
+ * @returns {VueI18n.TranslateResult}
+ */
+export function getI18nText(key) {
+  return i18n.t(key);
+}
+
+/***
+ * get i18n text by api response code
+ * @param code
+ * @returns {VueI18n.TranslateResult}
+ */
+export function getI18nTextByXXXApiRespCode(code) {
+  let key = `api.xxxApi.${code}`;
+  return (i18n.te(key) ? getI18nText(key) : getI18nText('api.unknownError'));
+}
+
+export default i18n;
