@@ -31,6 +31,29 @@ export function getQueryString(name) {
   return null;
 }
 
+export function getCookie(cookieName) {
+  if (document.cookie.length > 0) {
+    let startIndex = document.cookie.indexOf(cookieName + '=');
+    let endIndex = -1;
+    if (startIndex !== -1) {
+      startIndex += cookieName.length + 1;
+      endIndex = document.cookie.indexOf(';', startIndex);
+      if (endIndex === -1) {
+        endIndex = document.cookie.length;
+      }
+      return decodeURIComponent(document.cookie.substring(startIndex, endIndex));
+    }
+  }
+  return '';
+}
+
+export function setCookie(cookieName, cookieValue, expireMillisecond) {
+  let now = new Date();
+  let expireDateTime = new Date(now.getTime() + expireMillisecond);
+  document.cookie = `${cookieName}=${encodeURIComponent(cookieValue)}` +
+    `${(expireMillisecond == null) ? '' : `;expires=${expireDateTime.toGMTString()}`}`;
+}
+
 // 当前页打开链接
 export function openLinkThisTab(link) {
   if (link) {
