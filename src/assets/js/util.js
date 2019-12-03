@@ -16,6 +16,10 @@ export function isProd() {
   return process.env.NODE_ENV === 'production';
 }
 
+export function isJsFunction(fn) {
+  return typeof fn === 'function';
+}
+
 // region browser
 
 export function getQueryString(name) {
@@ -52,15 +56,42 @@ export function getOrigin() {
 }
 
 /***
- * 注册按下Esc键监听，执行callback
+ * 注册按下Esc键的监听事件，执行callback
+ *
  * @param cb callback函数
+ * @param isPermenantReg 是否永久注册。
+ *    ture，只注册一次即可（如在组件的created()里面注册），
+ *        但多个注册了esc键监听事件的dom同时激活时，一次esc会隐藏所有dom。
+ *        注意：永久注册的事件只会在回调函数栈空时才会执行，否则优先执行非永久注册的esc键事件
+ *    false，需要在组件每次show时注册，原理是维持一个回调函数栈，每次esc键按下时，
+ *        只会执行栈顶的回调函数，这样可以解决一次esc隐藏所有dom的问题。
  */
-export function registerEscKeyDown(cb) {
-  window.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape' && typeof cb === 'function') {
-      cb();
+let escCbStack = [];
+let hasRegisterEscKeyDownEventListener = false;
+export function registerEscKeyDown(cb, isPermenantReg) {
+  if (isPermenantReg) {
+    window.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Escape' && isJsFunction(cb) && escCbStack.length === 0) {
+        cb();
+      }
+    });
+  } else {
+    if (isJsFunction(cb)) {
+      escCbStack.push(cb);
     }
-  });
+    if (!hasRegisterEscKeyDownEventListener) {
+      // 只注册一次
+      hasRegisterEscKeyDownEventListener = true;
+      window.addEventListener('keydown', (evt) => {
+        if (evt.key === 'Escape') {
+          let curCb = escCbStack.pop();
+          if (isJsFunction(curCb)) {
+            curCb();
+          }
+        }
+      });
+    }
+  }
 }
 
 // endregion
