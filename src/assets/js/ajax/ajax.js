@@ -9,6 +9,27 @@ const INIT_AXIOS_HEADERS = {
 };
 
 /***
+ * merge new header into original header, return result
+ *
+ * 注意：自定义设置header，需要先在后端设置Access-Control-Allow-Headers，不然会在预检请求报跨域
+ */
+function getMergedHttpHeaders(newHeader, originHeader = INIT_AXIOS_HEADERS) {
+  let headers;
+  try {
+    headers = JSON.parse(JSON.stringify(originHeader));
+  } catch (e) {
+    console.error(e);
+    headers = {};
+  }
+  if (newHeader) {
+    Object.keys(newHeader).forEach((headerKey) => {
+      headers[headerKey] = newHeader[headerKey];
+    });
+  }
+  return headers;
+}
+
+/***
  * axios返回数据处理器
  * @param successHttpCode 判定为成功的http code
  * @param response axios response
@@ -26,11 +47,12 @@ function axiosRespHandler(successHttpCode, response, successCb) {
 }
 
 function Ajax() {
-  this.get = function(url, successCb, errorCb) {
+  this.get = function(url, successCb, errorCb, customHeaders) {
+    let headers = getMergedHttpHeaders(customHeaders, INIT_AXIOS_HEADERS);
     axios({
       url: url,
       method: 'get',
-      headers: INIT_AXIOS_HEADERS
+      headers: headers
     })
       .then((response) => {
         axiosRespHandler(200, response, successCb);
