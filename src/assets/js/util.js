@@ -4,6 +4,18 @@
 只依赖一些常量，不依赖其他工具js
  */
 
+export function isDev() {
+  return process.env.NODE_ENV === 'development';
+}
+
+export function isTest() {
+  return process.env.NODE_ENV === 'test';
+}
+
+export function isProd() {
+  return process.env.NODE_ENV === 'production';
+}
+
 // region browser
 
 export function getQueryString(name) {
