@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import qs from 'Qs';
 import axios from 'axios';
 
 import { getOrigin } from '../util.js';
@@ -6,6 +7,11 @@ import { getOrigin } from '../util.js';
 const INIT_AXIOS_HEADERS = {
   'Pragma': 'no-cache', // ajax http get result is forced cached by IE, so use no-cache header
   'Cache-Control': 'no-cache'
+};
+
+const HEADER_CONTENT_TYPE = {
+  json: 'application/json',
+  formEncode: 'application/x-www-form-urlencoded'
 };
 
 /***
@@ -48,10 +54,33 @@ function axiosRespHandler(successHttpCode, response, successCb) {
 
 function Ajax() {
   this.get = function(url, successCb, errorCb, customHeaders) {
-    let headers = getMergedHttpHeaders(customHeaders, INIT_AXIOS_HEADERS);
+    let headers = getMergedHttpHeaders(customHeaders);
     axios({
       url: url,
       method: 'get',
+      headers: headers
+    })
+      .then((response) => {
+        axiosRespHandler(200, response, successCb);
+      })
+      .catch((error) => {
+        if (errorCb) {
+          errorCb(error);
+        } else {
+          console.log(error);
+        }
+      });
+  };
+
+  this.post = function(url, postParam, successCb, errorCb, customHeaders, contentType = HEADER_CONTENT_TYPE.json) {
+    let headers = getMergedHttpHeaders(customHeaders);
+    headers['Content-Type'] = contentType;
+    // qs可以将数据序列化为以&拼接的形式
+    let data = (contentType === HEADER_CONTENT_TYPE.formEncode) ? qs.stringify(postParam) : postParam;
+    axios({
+      url: url,
+      method: 'post',
+      data: data,
       headers: headers
     })
       .then((response) => {
