@@ -117,6 +117,30 @@ export function registerEscKeyDown(cb, isPermenantReg) {
   }
 }
 
+/***
+ * 函数防抖。
+ *
+ * 使用场景：不间断触发的某个操作，如监听scroll执行事件处理函数。
+ *
+ * 意义：加入防抖，能够使事件处理函数在某个时间间隔后再执行，如果在这个时间间隔内再次触发了操作，
+ * 需要重新计时。这样能避免不间断地执行事件处理函数。
+ *
+ * 使用方法：如 window.addEventListener('scroll', debounce(fn, 500));
+ * @param fn 事件处理函数
+ * @param interval 间隔，单位毫秒，默认100
+ * @returns {Function}
+ */
+export function debounce(fn, interval = 100) {
+  let timeout = null;
+  let args = [].slice.call(arguments, 2);
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      fn.apply(this, args);
+    }, interval);
+  };
+}
+
 // endregion
 
 // region dom
