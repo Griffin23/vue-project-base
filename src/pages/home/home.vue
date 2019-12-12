@@ -1,10 +1,16 @@
 <template>
   <div>
-    o.o
+    <div v-show="mixin.isLargeScreen">lg</div>
+    <div v-show="!mixin.isLargeScreen">sm</div>
   </div>
 </template>
 <script>
+  import { rwdMixin } from '../../assets/js/mixin/rwd-mixin.js';
+
   export default {
+    mixins: [
+      rwdMixin
+    ],
     created() {
       console.log(this.$global.foo);
     }

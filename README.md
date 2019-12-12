@@ -18,6 +18,10 @@ supported by vue-i18n
 - container
 - px2rem
 
+more details in: 
+- js: [rwd-mixin.js](./src/assets/js/mixin/rwd-mixin.js)
+- css: [rwd.scss](./src/assets/css/rwd/rwd.scss)
+
 ### Other small feature
 
 #### z-index
