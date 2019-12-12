@@ -4,6 +4,9 @@ import axios from 'axios';
 
 import { getOrigin } from '../util.js';
 
+// 这样设置才能让跨域请求带上cookie，在custom header里面设置是无效的，不清楚为什么
+axios.defaults.withCredentials = true;
+
 const INIT_AXIOS_HEADERS = {
   'Pragma': 'no-cache', // ajax http get result is forced cached by IE, so use no-cache header
   'Cache-Control': 'no-cache'
