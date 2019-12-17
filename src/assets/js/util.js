@@ -94,7 +94,7 @@ let hasRegisterEscKeyDownEventListener = false;
 export function registerEscKeyDown(cb, isPermenantReg) {
   if (isPermenantReg) {
     window.addEventListener('keydown', (evt) => {
-      if (evt.key === 'Escape' && isJsFunction(cb) && escCbStack.length === 0) {
+      if ((evt.key === 'Escape' || evt.key === 'Esc') && isJsFunction(cb) && escCbStack.length === 0) {
         cb();
       }
     });
@@ -106,7 +106,7 @@ export function registerEscKeyDown(cb, isPermenantReg) {
       // 只注册一次
       hasRegisterEscKeyDownEventListener = true;
       window.addEventListener('keydown', (evt) => {
-        if (evt.key === 'Escape') {
+        if ((evt.key === 'Escape' || evt.key === 'Esc')) {
           let curCb = escCbStack.pop();
           if (isJsFunction(curCb)) {
             curCb();
