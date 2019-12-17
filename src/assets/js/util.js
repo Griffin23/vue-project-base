@@ -106,7 +106,7 @@ export function registerEscKeyDown(cb, isPermenantReg) {
       // 只注册一次
       hasRegisterEscKeyDownEventListener = true;
       window.addEventListener('keydown', (evt) => {
-        if ((evt.key === 'Escape' || evt.key === 'Esc')) {
+        if (evt.key === 'Escape' || evt.key === 'Esc') {
           let curCb = escCbStack.pop();
           if (isJsFunction(curCb)) {
             curCb();
