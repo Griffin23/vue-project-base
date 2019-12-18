@@ -144,6 +144,19 @@ export function debounce(fn, interval = 100) {
 // endregion
 
 // region dom
+
+/***
+ * insert new element after ref element
+ */
+export function insertAfter(newEle, refEle) {
+  let parent = refEle.parentNode;
+  if (parent.lastChild == refEle) {
+    parent.appendChild(newEle);
+  } else {
+    parent.insertBefore(newEle, refEle.nextSibling);
+  }
+}
+
 // 固定底部背景（如遮罩层的出现）
 export function fixBackground() {
   document.body.style.overflow = 'hidden';
