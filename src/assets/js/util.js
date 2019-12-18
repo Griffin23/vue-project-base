@@ -157,6 +157,22 @@ export function insertAfter(newEle, refEle) {
   }
 }
 
+export function hasCssClass(ele, clazzName) {
+  return !!ele.className.match(new RegExp("(\\s|^)" + clazzName + "(\\s|$)"));
+}
+
+export function addCssClass(ele, clazzName) {
+  if (!hasCssClass(ele, clazzName)) {
+    ele.className += " " + clazzName;
+  }
+}
+
+export function removeCssClass(ele, clazzName) {
+  if (hasCssClass(ele, clazzName)) {
+    ele.className = ele.className.replace(new RegExp("(\\s|^)" + clazzName + "(\\s|$)"), " ");
+  }
+}
+
 // 固定底部背景（如遮罩层的出现）
 export function fixBackground() {
   document.body.style.overflow = 'hidden';
