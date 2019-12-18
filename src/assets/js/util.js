@@ -150,7 +150,7 @@ export function debounce(fn, interval = 100) {
  */
 export function insertAfter(newEle, refEle) {
   let parent = refEle.parentNode;
-  if (parent.lastChild == refEle) {
+  if (parent.lastChild === refEle) {
     parent.appendChild(newEle);
   } else {
     parent.insertBefore(newEle, refEle.nextSibling);
