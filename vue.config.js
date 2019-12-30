@@ -19,6 +19,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   pages,
+  assetsDir: 'foo-assets-dir',
   devServer: {
     index: 'home.html'
   },
