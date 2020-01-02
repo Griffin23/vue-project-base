@@ -23,6 +23,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "glob": "^7.1.6",
+    "image-webpack-loader": "^6.0.0",
     "node-sass": "^4.13.0",
     "postcss-plugin-px2rem": "^0.8.1",
     "sass-loader": "^8.0.0",

@@ -2,6 +2,9 @@
   <div>
     <div v-show="mixin.isLargeScreen">lg</div>
     <div v-show="!mixin.isLargeScreen">sm</div>
+    <div>
+      <img src="../../assets/img/loli.jpg" alt="loli">
+    </div>
   </div>
 </template>
 <script>
