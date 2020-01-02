@@ -2,7 +2,7 @@
   <div>
     <div v-show="mixin.isLargeScreen">lg</div>
     <div v-show="!mixin.isLargeScreen">sm</div>
-    <div>
+    <div class="test-image-webpack-loader">
       <img src="../../assets/img/loli.jpg" alt="loli">
     </div>
   </div>
