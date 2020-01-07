@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const glob = require('glob'); // 匹配文件的工具
 
 const pages = {};
@@ -16,6 +17,8 @@ entries.forEach((jsFilePath) => {
 });
 
 const CompressionPlugin = require('compression-webpack-plugin');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const gitRevisionPlugin = new GitRevisionPlugin();
 
 module.exports = {
   pages,
@@ -48,6 +51,11 @@ module.exports = {
   },
   configureWebpack: config => {
     let plugins = [];
+    plugins.push(gitRevisionPlugin);
+    plugins.push(new webpack.DefinePlugin({
+      'process.env.GIT_BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
+      'process.env.GIT_COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash())
+    }));
     // 使用gzip算法进行源文件压缩；
     // 同时需要配置nginx开启读取.gz的配置（gzip_static on）
     if (process.env.NODE_ENV === 'production') {

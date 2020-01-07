@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :data-v="gitVersion">
     <div v-show="mixin.isLargeScreen">lg</div>
     <div v-show="!mixin.isLargeScreen">sm</div>
     <div class="test-image-webpack-loader">
@@ -11,6 +11,11 @@
   import { rwdMixin } from '../../assets/js/mixin/rwd-mixin.js';
 
   export default {
+    data() {
+      return {
+        gitVersion: `${process.env.GIT_BRANCH}-${process.env.GIT_COMMITHASH}`
+      };
+    },
     mixins: [
       rwdMixin
     ],
