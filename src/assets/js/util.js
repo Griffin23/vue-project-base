@@ -31,27 +31,28 @@ export function getQueryString(name) {
   return null;
 }
 
-export function getCookie(cookieName) {
-  if (document.cookie.length > 0) {
-    let startIndex = document.cookie.indexOf(cookieName + '=');
-    let endIndex = -1;
-    if (startIndex !== -1) {
-      startIndex += cookieName.length + 1;
-      endIndex = document.cookie.indexOf(';', startIndex);
-      if (endIndex === -1) {
-        endIndex = document.cookie.length;
-      }
-      return decodeURIComponent(document.cookie.substring(startIndex, endIndex));
+export function getCookie(key) {
+  let cookiePairs = document.cookie.split(';');
+  for (let i = 0; i < cookiePairs.length; i++) {
+    // seperate key value by equal operator(=). Note that value may contain equal operator
+    let equalOperatorIndex = cookiePairs[i].indexOf('=');
+    // must use trim() to remove spaces
+    let currKey = cookiePairs[i].substring(0, equalOperatorIndex).trim();
+    if (currKey === key) {
+      return decodeURIComponent(cookiePairs[i].substring(equalOperatorIndex + 1));
     }
   }
   return '';
 }
-
-export function setCookie(cookieName, cookieValue, expireMillisecond) {
-  let now = new Date();
-  let expireDateTime = new Date(now.getTime() + expireMillisecond);
-  document.cookie = `${cookieName}=${encodeURIComponent(cookieValue)}` +
-    `${(expireMillisecond == null) ? '' : `;expires=${expireDateTime.toGMTString()}`}`;
+export function setCookie(key, value, expire_ms) {
+  let result = `${key}=${encodeURIComponent(value)}`;
+  if (expire_ms) {
+    result += `;expires=${(new Date(new Date().getTime() + expire_ms)).toUTCString()}`;
+  }
+  document.cookie = result;
+}
+export function removeCookie(key) {
+  setCookie(key, '', -1);
 }
 
 // 当前页打开链接
