@@ -162,7 +162,8 @@ export function insertAfter(newEle, refEle) {
 }
 
 export function hasCssClass(ele, clazzName) {
-  return !!ele.className.match(new RegExp("(\\s|^)" + clazzName + "(\\s|$)"))
+  let reg = new RegExp("(\\s|^)" + clazzName + "(\\s|$)")
+  return reg.test(ele.className)
 }
 
 export function addCssClass(ele, clazzName) {
