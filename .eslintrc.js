@@ -8,7 +8,7 @@ module.exports = {
     'eslint:recommended'
   ],
   rules: {
-    'semi': ["error", "always"], // 检查分号
+    'semi': ["error", "never"], // 不允许分号
     'indent': 'off', // 不检查缩进
     'space-before-function-paren': 'off',
     'no-console': 'off',
