@@ -26,7 +26,7 @@ export function getQueryString(name) {
   let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
   let r = window.location.search.substr(1).match(reg)
   if (r != null) {
-    return decodeURI(r[2])
+    return decodeURIComponent(r[2].replace(/\+/g, ' '))
   }
   return null
 }
