@@ -32,17 +32,13 @@ export function getQueryString(name) {
 }
 
 export function getCookie(key) {
-  let cookiePairs = document.cookie.split(';')
-  for (let i = 0; i < cookiePairs.length; i++) {
-    // seperate key value by equal operator(=). Note that value may contain equal operator
-    let equalOperatorIndex = cookiePairs[i].indexOf('=')
-    // must use trim() to remove spaces
-    let currKey = cookiePairs[i].substring(0, equalOperatorIndex).trim()
-    if (currKey === key) {
-      return decodeURIComponent(cookiePairs[i].substring(equalOperatorIndex + 1))
-    }
+  let reg = new RegExp('(^|\\s)' + key + '=([^;]*)(;|$)')
+  let matches = reg.exec(document.cookie)
+  if (matches) {
+    return decodeURIComponent(matches[2])
+  } else {
+    return ''
   }
-  return ''
 }
 
 export function setCookie(key, value, expire_ms) {
