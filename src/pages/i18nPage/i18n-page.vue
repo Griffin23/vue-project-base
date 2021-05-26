@@ -7,12 +7,12 @@
   </div>
 </template>
 <script>
-  export default {
-    methods: {
-      toggleLang() {
-        this.$i18n.locale = (this.$i18n.locale === 'en') ? 'zh' : 'en';
-      }
+export default {
+  methods: {
+    toggleLang() {
+      this.$i18n.locale = (this.$i18n.locale === 'en') ? 'zh' : 'en'
     }
-  };
+  }
+}
 </script>
 <style></style>
