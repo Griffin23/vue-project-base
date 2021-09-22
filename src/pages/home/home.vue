@@ -8,21 +8,21 @@
   </div>
 </template>
 <script>
-  import { rwdMixin } from '../../assets/js/mixin/rwd-mixin.js';
+  import { rwdMixin } from '../../assets/js/mixin/rwd-mixin.js'
 
   export default {
     data() {
       return {
         gitVersion: `${process.env.GIT_BRANCH}-${process.env.GIT_COMMITHASH}`
-      };
+      }
     },
     mixins: [
       rwdMixin
     ],
     created() {
-      console.log(this.$global.foo);
+      console.log(this.$global.foo)
     }
-  };
+  }
 </script>
 <style lang="scss" scoped>
   @import "../../assets/css/global";

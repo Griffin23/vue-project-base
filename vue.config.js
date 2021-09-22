@@ -1,24 +1,24 @@
-const webpack = require('webpack');
-const glob = require('glob'); // 匹配文件的工具
+const webpack = require('webpack')
+const glob = require('glob') // 匹配文件的工具
 
-const pages = {};
-let pageDir = 'src/pages/*';
-let entries = glob.sync(`${pageDir}/*.js`);
-let entriesPattern = /src\/pages\/.*?\/(.*).js/;
+const pages = {}
+let pageDir = 'src/pages/*'
+let entries = glob.sync(`${pageDir}/*.js`)
+let entriesPattern = /src\/pages\/.*?\/(.*).js/
 
 // 多页面配置
 entries.forEach((jsFilePath) => {
-  let pageName = entriesPattern.exec(jsFilePath)[1];
+  let pageName = entriesPattern.exec(jsFilePath)[1]
   pages[pageName] = {
     entry: jsFilePath,
     template: 'src/template.html',
     filename: `${pageName}.html`
-  };
-});
+  }
+})
 
-const CompressionPlugin = require('compression-webpack-plugin');
-const GitRevisionPlugin = require('git-revision-webpack-plugin');
-const gitRevisionPlugin = new GitRevisionPlugin();
+const CompressionPlugin = require('compression-webpack-plugin')
+const GitRevisionPlugin = require('git-revision-webpack-plugin')
+const gitRevisionPlugin = new GitRevisionPlugin()
 
 module.exports = {
   pages,
@@ -30,9 +30,10 @@ module.exports = {
   css: {
     loaderOptions: {
       postcss: {
-        plugins: [require('postcss-plugin-px2rem')({
-          value: 100 // px转换rem，基准值100px
-        })]
+        plugins: [
+          require('postcss-plugin-px2rem')({
+            value: 100 // px转换rem，基准值100px
+          })]
       }
     }
   },
@@ -47,15 +48,16 @@ module.exports = {
         // 调试模式（debug mode）下不做处理
         bypassOnDebug: true
       })
-      .end();
+      .end()
   },
   configureWebpack: config => {
-    let plugins = [];
-    plugins.push(gitRevisionPlugin);
+    let plugins = []
+    plugins.push(gitRevisionPlugin)
     plugins.push(new webpack.DefinePlugin({
       'process.env.GIT_BRANCH': JSON.stringify(gitRevisionPlugin.branch()),
-      'process.env.GIT_COMMITHASH': JSON.stringify(gitRevisionPlugin.commithash())
-    }));
+      'process.env.GIT_COMMITHASH': JSON.stringify(
+        gitRevisionPlugin.commithash())
+    }))
     // 使用gzip算法进行源文件压缩；
     // 同时需要配置nginx开启读取.gz的配置（gzip_static on）
     if (process.env.NODE_ENV === 'production') {
@@ -65,10 +67,10 @@ module.exports = {
         threshold: 10240, // 对超过10k的数据压缩
         deleteOriginalAssets: false, // 不删除源文件
         minRatio: 0.8 // 只有压缩率比这个值小的资源才会被处理（minRatio = 压缩大小 / 原始大小）
-      }));
+      }))
     }
     return {
       plugins
-    };
+    }
   }
-};
+}

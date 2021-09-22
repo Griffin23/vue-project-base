@@ -8,4 +8,4 @@ export default {
       202: 'another success once again'
     }
   }
-};
+}

@@ -1,27 +1,27 @@
-import Vue from 'vue';
-import VueI18n from 'vue-i18n';
-import enMsg from './locale/en.js';
-import zhMsg from './locale/zh.js';
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+import enMsg from './locale/en.js'
+import zhMsg from './locale/zh.js'
 
-Vue.use(VueI18n);
+Vue.use(VueI18n)
 
 let messages = {
   'en': enMsg,
   'zh': zhMsg
-};
+}
 
-let lang = 'en';
+let lang = 'en'
 
 // language enum
 export const langEnum = {
   EN: 'en',
   ZH: 'zh'
-};
+}
 
 let i18n = new VueI18n({
   locale: lang,
   messages: messages
-});
+})
 
 /***
  * get i18n text by key
@@ -29,7 +29,7 @@ let i18n = new VueI18n({
  * @returns {VueI18n.TranslateResult}
  */
 export function getI18nText(key) {
-  return i18n.t(key);
+  return i18n.t(key)
 }
 
 /***
@@ -38,8 +38,8 @@ export function getI18nText(key) {
  * @returns {VueI18n.TranslateResult}
  */
 export function getI18nTextByXXXApiRespCode(code) {
-  let key = `api.xxxApi.${code}`;
-  return (i18n.te(key) ? getI18nText(key) : getI18nText('api.unknownError'));
+  let key = `api.xxxApi.${code}`
+  return (i18n.te(key) ? getI18nText(key) : getI18nText('api.unknownError'))
 }
 
-export default i18n;
+export default i18n
