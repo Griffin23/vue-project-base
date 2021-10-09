@@ -41,7 +41,7 @@ export function getCookie(key) {
   }
 }
 export function getCookie1 (key) {
-  let result = `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift()
+  let result = `; ${document.cookie}`.split(`; ${key}=`).pop().split(';').shift()
   return decodeURIComponent(result)
 }
 
