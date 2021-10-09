@@ -40,6 +40,10 @@ export function getCookie(key) {
     return ''
   }
 }
+export function getCookie1 (key) {
+  let result = `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift()
+  return decodeURIComponent(result)
+}
 
 export function setCookie(key, value, expire_ms) {
   let result = `${key}=${encodeURIComponent(value)}`
