@@ -1,15 +1,19 @@
 <template>
-  <div class="wrap">
-    <div class="inner" :style="`animation: scroll-text-animation ${loopTimeMs * 2}ms linear infinite;`">
+  <div class="wrap" ref="wrap">
+    <div v-if="isTextScroll" class="inner"
+         :style="`animation: scroll-text-animation ${loopTimeMs * 2}ms linear infinite;`">
       <span class="inner-item" v-for="i in 2" :key="i">
         <span v-for="j in spaceCount" :key="j">&nbsp;</span>{{ text }}
       </span>
     </div>
+    <span v-else style="display: inline-block" ref="origin-text">{{ text }}</span>
   </div>
 </template>
 <script>
 
-// 使用时，为本组件设置一下长度、宽度即可
+/***
+ * 使用时，为本组件设置一下长度、宽度即可
+ */
 
 export default {
   name: 'ScrollText',
@@ -17,6 +21,7 @@ export default {
     text: {
       type: String
     },
+    // 文本循环滚动一次的时间 毫秒
     loopTimeMs: {
       type: Number,
       default: 2500
@@ -25,6 +30,21 @@ export default {
     spaceCount: {
       type: Number,
       default: 2
+    }
+  },
+  data () {
+    return {
+      isTextScroll: false
+    }
+  },
+  mounted () {
+    this.judgeTextScroll()
+  },
+  methods: {
+    judgeTextScroll () {
+      const containerLength = Number.parseFloat(window.getComputedStyle(this.$refs.wrap).width)
+      const textLength = Number.parseFloat(window.getComputedStyle(this.$refs['origin-text']).width)
+      this.isTextScroll = containerLength < textLength
     }
   }
 }
