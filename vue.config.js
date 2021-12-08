@@ -32,7 +32,7 @@ module.exports = {
       postcss: {
         plugins: [
           require('postcss-plugin-px2rem')({
-            value: 100 // px转换rem，基准值100px
+            rootValue: 100 // px转换rem，基准值100px
           })]
       }
     }
