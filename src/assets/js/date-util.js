@@ -4,6 +4,6 @@
  * @returns {Date}
  */
 export function getDateByDiffDay(diffDay) {
-  let time = new Date().getTime() + diffDay * 24 * 60 * 60 * 1000;
-  return new Date(time);
+  let time = new Date().getTime() + diffDay * 24 * 60 * 60 * 1000
+  return new Date(time)
 }
