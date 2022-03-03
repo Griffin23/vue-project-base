@@ -32,6 +32,8 @@ module.exports = {
       postcss: {
         plugins: [
           require('postcss-plugin-px2rem')({
+            exclude: /(colorfulPortal)/,
+            // exclude: /^((?!h5page).)+$/, // 只对h5page文件夹下的页应用
             rootValue: 100 // px转换rem，基准值100px
           })]
       }
