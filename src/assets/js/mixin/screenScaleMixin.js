@@ -37,7 +37,7 @@ export default {
     },
     _scale () {
       this.screenScaleMixin.scaleX = window.innerWidth / this.screenScaleMixin.uiFileWidth
-      this.screenScaleMixin.scaleY = document.body.clientHeight / this.screenScaleMixin.uiFileHeight
+      this.screenScaleMixin.scaleY = window.innerHeight / this.screenScaleMixin.uiFileHeight
     }
   }
 }

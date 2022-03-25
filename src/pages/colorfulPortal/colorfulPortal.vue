@@ -26,6 +26,7 @@ export default {
 .page-container-wrapper {
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 
   .page-container {
     width: 1920px;
