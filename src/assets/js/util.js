@@ -151,6 +151,55 @@ export function debounce(fn, interval = 100) {
   }
 }
 
+/***
+ * 下载base64图片
+ * @param filename
+ * @param imgBase64Code
+ */
+export function downloadBase64Img({ filename, imgBase64Code }) {
+  // 适配IE
+  if (window.navigator.msSaveOrOpenBlob) {
+    const bstr = atob(imgBase64Code.split(',')[1])
+    let n = bstr.length
+    const u8arr = new Uint8Array(n)
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    const blob = new Blob([u8arr])
+    window.navigator.msSaveOrOpenBlob(blob, filename)
+  } else {
+    // chrome等新版浏览器
+    const a = document.createElement('a')
+    a.href = imgBase64Code
+    a.setAttribute('download', filename)
+    a.click()
+  }
+}
+
+/***
+ * 下载base64图片
+ * @param base64code
+ * @param picName
+ */
+export function downloadBase64Img2(base64code, picName = 'default.png') {
+  let dom = document.createElement('a')
+  dom.href = assembleImgBase64URL(base64code)
+  dom.download = picName
+  dom.style.display = 'none'
+  document.body.appendChild(dom)
+  dom.click()
+  dom.parentNode.removeChild(dom)
+}
+
+/***
+ * base64图片URL
+ * @param base64code
+ * @returns {string}
+ */
+export function assembleImgBase64URL(base64code) {
+  return `data:image/png;base64,${base64code}`
+}
+
 // endregion
 
 // region dom
