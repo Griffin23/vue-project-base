@@ -40,15 +40,20 @@ export function getCookie(key) {
     return ''
   }
 }
-export function getCookie1 (key) {
-  let result = `; ${document.cookie}`.split(`; ${key}=`).pop().split(';').shift()
+
+export function getCookie1(key) {
+  let result = `; ${document.cookie}`.split(`; ${key}=`)
+    .pop()
+    .split(';')
+    .shift()
   return decodeURIComponent(result)
 }
 
 export function setCookie(key, value, expire_ms) {
   let result = `${key}=${encodeURIComponent(value)}`
   if (expire_ms) {
-    result += `;expires=${(new Date(new Date().getTime() + expire_ms)).toUTCString()}`
+    result += `;expires=${(new Date(
+      new Date().getTime() + expire_ms)).toUTCString()}`
   }
   document.cookie = result
 }
@@ -98,7 +103,8 @@ let hasRegisterEscKeyDownEventListener = false
 export function registerEscKeyDown(cb, isPermenantReg) {
   if (isPermenantReg) {
     window.addEventListener('keydown', (evt) => {
-      if ((evt.key === 'Escape' || evt.key === 'Esc') && isJsFunction(cb) && escCbStack.length === 0) {
+      if ((evt.key === 'Escape' || evt.key === 'Esc') && isJsFunction(cb) &&
+        escCbStack.length === 0) {
         cb()
       }
     })
@@ -137,7 +143,7 @@ export function registerEscKeyDown(cb, isPermenantReg) {
 export function debounce(fn, interval = 100) {
   let timeout = null
   let args = [].slice.call(arguments, 2)
-  return function() {
+  return function () {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       fn.apply(this, args)
@@ -162,19 +168,20 @@ export function insertAfter(newEle, refEle) {
 }
 
 export function hasCssClass(ele, clazzName) {
-  let reg = new RegExp("(\\s|^)" + clazzName + "(\\s|$)")
+  let reg = new RegExp('(\\s|^)' + clazzName + '(\\s|$)')
   return reg.test(ele.className)
 }
 
 export function addCssClass(ele, clazzName) {
   if (!hasCssClass(ele, clazzName)) {
-    ele.className += " " + clazzName
+    ele.className += ' ' + clazzName
   }
 }
 
 export function removeCssClass(ele, clazzName) {
   if (hasCssClass(ele, clazzName)) {
-    ele.className = ele.className.replace(new RegExp("(\\s|^)" + clazzName + "(\\s|$)"), " ")
+    ele.className = ele.className.replace(
+      new RegExp('(\\s|^)' + clazzName + '(\\s|$)'), ' ')
   }
 }
 
